@@ -1,4 +1,4 @@
-package kafkatests;
+package kafkatests.kafka;
 
 import java.util.Map;
 
