@@ -20,18 +20,20 @@ public class KafkaConsumerConfiguration {
 	@Bean
 	public ConsumerFactory<String, String> consumerFactory() {
 		Map<String, Object> props = Map.of(
-			ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
-			ConsumerConfig.GROUP_ID_CONFIG, "myGroup",
-			ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-			ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
-			ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+				ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers,
+				ConsumerConfig.GROUP_ID_CONFIG, "myGroup",
+				ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
+				ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
+				ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
+				//ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false"
+		);
 		return new DefaultKafkaConsumerFactory<>(props);
 	}
 
-	@Bean
+	/*@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
 		ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
-	}
+	}*/
 }

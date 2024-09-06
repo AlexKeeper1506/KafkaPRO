@@ -1,3 +1,4 @@
+/*
 package kafkatests.kafka;
 
 import org.slf4j.Logger;
@@ -13,11 +14,11 @@ public class KafkaMessageConsumerService {
 	private static final Logger LOG = LoggerFactory.getLogger(KafkaMessageConsumerService.class);
 
 	@SuppressWarnings({ "static-method", "unused" })
-	@KafkaListener(topics = "topic2")
+	@KafkaListener(topics = "topic1")
 	public void onMessage(@Payload String msg,
 		@Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
 		@Header(KafkaHeaders.RECEIVED_PARTITION_ID) Integer partition,
 		@Header(KafkaHeaders.OFFSET) Long offset) {
 		LOG.info("Message consumed {}", msg);
 	}
-}
+}*/

@@ -1,11 +1,10 @@
 package kafkatests.controller;
 
 import kafkatests.dto.ConferenceDto;
+import kafkatests.dto.NewRegistersDto;
 import kafkatests.dto.RegisterDto;
 import kafkatests.service.MainService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MainController {
@@ -23,5 +22,10 @@ public class MainController {
     @PutMapping(value = "/addConference")
     public void addConference(@RequestBody ConferenceDto conferenceDto) {
         service.createConference(conferenceDto);
+    }
+
+    @GetMapping(value = "/getNewRegisters/{conferenceID}")
+    public NewRegistersDto getNewRegisters(@PathVariable Long conferenceID) {
+        return service.getNewRegisters(conferenceID);
     }
 }
