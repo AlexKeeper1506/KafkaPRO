@@ -20,7 +20,7 @@ public class KafkaConsumerService {
     RegisterRepository repository;
 
     public KafkaConsumerService(ConsumerFactory<String, String> consumerFactory, RegisterRepository repository) {
-        consumer = consumerFactory.createConsumer("conference", "reader");
+        consumer = consumerFactory.createConsumer("myGroup", "reader");
         consumer.subscribe(Arrays.asList("topic1"));
         this.repository = repository;
     }

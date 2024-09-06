@@ -47,7 +47,9 @@ public class MainService {
     }
 
     @Transactional
-    public NewRegistersDto getNewRegisters(Long conferenceId) {
-        return consumer.getNewRegisters(conferenceId);
+    public NewRegistersDto getNewRegisters(Long conferenceID) {
+        if (!repository.existsByConferenceID(conferenceID)) throw new ConferenceNotFound("Conference not found");
+
+        return consumer.getNewRegisters(conferenceID);
     }
 }
