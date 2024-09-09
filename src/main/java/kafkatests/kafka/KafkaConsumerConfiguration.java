@@ -11,7 +11,7 @@ import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 
-@Configuration
+/*@Configuration
 public class KafkaConsumerConfiguration {
 
 	@Value("${kafka.bootstrap-servers}")
@@ -25,10 +25,9 @@ public class KafkaConsumerConfiguration {
 				ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
 				ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class,
 				ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
-				//ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false"
 		);
 		return new DefaultKafkaConsumerFactory<>(props);
-	}
+	}*/
 
 	/*@Bean
 	public ConcurrentKafkaListenerContainerFactory<String, String> kafkaListenerContainerFactory() {
@@ -36,4 +35,4 @@ public class KafkaConsumerConfiguration {
 		factory.setConsumerFactory(consumerFactory());
 		return factory;
 	}*/
-}
+//}

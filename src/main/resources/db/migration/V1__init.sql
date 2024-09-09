@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS conferences(
 
 CREATE TABLE IF NOT EXISTS registers(
     id BIGSERIAL PRIMARY KEY,
-    conference_id BIGINT UNIQUE NOT NULL,
+    conference_id BIGINT NOT NULL,
     name VARCHAR(255) NOT NULL
 );

@@ -3,33 +3,45 @@ package kafkatests.service;
 import kafkatests.dto.NewRegistersDto;
 import kafkatests.entity.Register;
 import kafkatests.repository.RegisterRepository;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.springframework.kafka.core.ConsumerFactory;
+import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 @Service
 public class KafkaConsumerService {
-    Consumer<String, String> consumer;
-    RegisterRepository repository;
+    private static final Logger LOG = LoggerFactory.getLogger(KafkaConsumerService.class);
+    private final Consumer<String, String> consumer;
+    private final RegisterRepository repository;
 
-    public KafkaConsumerService(ConsumerFactory<String, String> consumerFactory, RegisterRepository repository) {
-        consumer = consumerFactory.createConsumer("myGroup", "reader");
+    public KafkaConsumerService(RegisterRepository repository) {
+        Properties consumerProperties = new Properties();
+
+        consumerProperties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        consumerProperties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        consumerProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        consumerProperties.put(ConsumerConfig.GROUP_ID_CONFIG, "myGroup");
+        consumerProperties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
+        consumer = new KafkaConsumer<>(consumerProperties);
         consumer.subscribe(Arrays.asList("topic1"));
+
         this.repository = repository;
     }
 
     public NewRegistersDto getNewRegisters(Long conferenceId) {
-        ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
+        ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(10));
 
         for (ConsumerRecord<String, String> record : records) {
             String str = record.value();
+            LOG.info(str);
             String[] stringArr = str.split(" ");
 
             Register register = new Register();
